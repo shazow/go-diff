@@ -5,7 +5,14 @@ import (
 	"fmt"
 	"io"
 	"path/filepath"
+
+	"github.com/shazow/go-diff/dmp"
 )
+
+// DefaultDiffer returns a diffmatchpatch-based differ.
+func DefaultDiffer() Differ {
+	return dmp.New()
+}
 
 type Differ interface {
 	// Diff writes a generated patch to out for the diff between a and b.
@@ -37,6 +44,15 @@ type Writer struct {
 	DstPrefix string
 }
 
+// Diff writes the header and the generated the diff body when appropriate.
+func (w *Writer) Diff(src, dst Object) error {
+	// TODO: This can be optimized by skipping diff'ing when it's a rename.
+	if err := w.WriteHeader(src, dst); err != nil {
+		return err
+	}
+	return w.WriteDiff(src, dst)
+}
+
 // WriteHeader writes only the header for the comparison between the src and dst Objects.
 func (w *Writer) WriteHeader(src, dst Object) error {
 	var srcPath, dstPath string
@@ -57,17 +73,17 @@ func (w *Writer) WriteHeader(src, dst Object) error {
 
 	fmt.Fprintf(w, "diff --git %s %s\n", srcPath, dstPath)
 	if src == EmptyObject {
-		fmt.Fprintf(w, "new file mode %o\n", dst.Mode)
+		fmt.Fprintf(w, "new file mode %06d\n", dst.Mode)
 		fmt.Fprintf(w, "index %x..%x\n", src.ID, dst.ID)
 		fmt.Fprintf(w, "--- /dev/null\n")
 		fmt.Fprintf(w, "+++ %s\n", dstPath)
 	} else if dst == EmptyObject {
-		fmt.Fprintf(w, "deleted file mode %o\n", src.Mode)
+		fmt.Fprintf(w, "deleted file mode %06d\n", src.Mode)
 		fmt.Fprintf(w, "index %x..%x\n", src.ID, dst.ID)
 		fmt.Fprintf(w, "--- %s\n", srcPath)
 		fmt.Fprintf(w, "+++ /dev/null\n")
 	} else {
-		fmt.Fprintf(w, "index %x..%x %o\n", src.ID, dst.ID, dst.Mode)
+		fmt.Fprintf(w, "index %x..%x %06d\n", src.ID, dst.ID, dst.Mode)
 		fmt.Fprintf(w, "--- %s\n", srcPath)
 		fmt.Fprintf(w, "+++ %s\n", dstPath)
 	}
