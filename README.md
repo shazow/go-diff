@@ -13,8 +13,8 @@ Built to be used in the pure-Go implementation of the Git backend for
 
 ## Features
 
-- Git-style patch headers for each file.
-- Bring your own diff algorithm implementation by implementing the *Differ* interface.
+- Git-style patch headers for each file (are there other styles to support?).
+- Bring your own diff algorithm by implementing the *Differ* interface.
 - Includes a *Differ* implementation using [diffmatchpatch](https://godoc.org/github.com/sergi/go-diff/diffmatchpatch).
 
 
