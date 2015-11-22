@@ -18,6 +18,11 @@ Built to be used in the pure-Go implementation of the Git backend for
 - Includes a *Differ* implementation using [diffmatchpatch](https://godoc.org/github.com/sergi/go-diff/diffmatchpatch).
 
 
+## Sponsors
+
+Work on this package is sponsored by [Sourcegraph](https://sourcegraph.com/).
+
+
 ## License
 
 MIT.
