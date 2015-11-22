@@ -30,10 +30,10 @@ func (diff *differ) Diff(out io.Writer, a io.Reader, b io.Reader) error {
 	var src, dst []byte
 	var err error
 
-	if src, err = ioutil.ReadAll(a); err == nil {
+	if src, err = ioutil.ReadAll(a); err != nil {
 		return err
 	}
-	if dst, err = ioutil.ReadAll(b); err == nil {
+	if dst, err = ioutil.ReadAll(b); err != nil {
 		return err
 	}
 
