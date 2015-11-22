@@ -46,7 +46,7 @@ type Writer struct {
 
 // Diff writes the header and the generated the diff body when appropriate.
 func (w *Writer) Diff(src, dst Object) error {
-	// TODO: This can be optimized by skipping diff'ing when it's a rename.
+	// TODO: This can be optimized by skipping diff'ing during renames, mode changes, etc.
 	if err := w.WriteHeader(src, dst); err != nil {
 		return err
 	}
