@@ -26,7 +26,7 @@ func New() *differ {
 // manipulates all three values in memory.
 //
 // It's essentially an io wrapper around diffmatchpatch's PatchMake and PatchToText.
-func (diff *differ) Diff(out io.Writer, a io.Reader, b io.Reader) error {
+func (diff *differ) Diff(out io.Writer, a io.ReadSeeker, b io.ReadSeeker) error {
 	var src, dst []byte
 	var err error
 

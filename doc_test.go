@@ -7,16 +7,16 @@ import (
 
 func ExampleDiff() {
 	a := Object{
-		Reader: bytes.NewBufferString("foo"),
-		ID:     [20]byte{1}, // Fake object ID
-		Path:   "myfile",
-		Mode:   100644,
+		ReadSeeker: bytes.NewReader([]byte("foo")),
+		ID:         [20]byte{1}, // Fake object ID
+		Path:       "myfile",
+		Mode:       100644,
 	}
 	b := Object{
-		Reader: bytes.NewBufferString("foo\nbar"),
-		ID:     [20]byte{2}, // Another fake object ID, but it changed!
-		Path:   "myfile",
-		Mode:   100644,
+		ReadSeeker: bytes.NewReader([]byte("foo\nbar")),
+		ID:         [20]byte{2}, // Another fake object ID, but it changed!
+		Path:       "myfile",
+		Mode:       100644,
 	}
 
 	differ := DefaultDiffer()

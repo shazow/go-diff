@@ -21,7 +21,7 @@ func TestDiffer(t *testing.T) {
 	var out bytes.Buffer
 	for i, test := range tests {
 		out.Reset()
-		err := differ.Diff(&out, bytes.NewBufferString(test.a), bytes.NewBufferString(test.b))
+		err := differ.Diff(&out, bytes.NewReader([]byte(test.a)), bytes.NewReader([]byte(test.b)))
 		if err != test.err {
 			t.Errorf("case #%d: incorrect error, got: %q; want: %q", i, err, test.err)
 		}

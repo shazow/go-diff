@@ -14,14 +14,15 @@ func DefaultDiffer() Differ {
 	return dmp.New()
 }
 
+// Differ supplies a stream-based diffing algorithm implementation.
 type Differ interface {
 	// Diff writes a generated patch to out for the diff between a and b.
-	Diff(out io.Writer, a io.Reader, b io.Reader) error
+	Diff(out io.Writer, a io.ReadSeeker, b io.ReadSeeker) error
 }
 
 // Object is the minimum representation for generating diffs with git-style headers.
 type Object struct {
-	io.Reader
+	io.ReadSeeker
 	// ID is the sha1 of the object
 	ID [20]byte
 	// Path is the root-relative path of the object
@@ -91,6 +92,6 @@ func (w *Writer) WriteHeader(src, dst Object) error {
 }
 
 // WriteDiff performs a Diff between a and b and writes only the resulting diff. It does not write the header.
-func (w *Writer) WriteDiff(a, b io.Reader) error {
+func (w *Writer) WriteDiff(a, b io.ReadSeeker) error {
 	return w.Differ.Diff(w, a, b)
 }
