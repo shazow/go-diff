@@ -13,9 +13,9 @@ func TestDiffer(t *testing.T) {
 		err        error
 	}{
 		{"", "", "", nil},
-		{"foo", "foo\nbar", "@@ -1,3 +1,7 @@\n foo\n+bar\n", nil},
-		{"foo\nbar", "foo", "@@ -1,7 +1,3 @@\n foo\n-bar\n", nil},
-		{"foo\nbar", "bar", "@@ -1,7 +1,3 @@\n-foo\n bar\n", nil},
+		{"foo", "foo\nbar", "@@ -1 +1,2 @@\n foo\n+bar\n", nil},
+		{"foo\nbar", "foo", "@@ -1,2 +1 @@\n foo\n-bar\n", nil},
+		{"foo\nbar", "bar", "@@ -1,2 +1 @@\n-foo\n bar\n", nil},
 	}
 
 	var out bytes.Buffer
