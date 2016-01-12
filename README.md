@@ -10,15 +10,20 @@ Library for generating Git-style diff patchsets in Go.
 Built to be used in the pure-Go implementation of the Git backend for
 [sourcegraph's go-vcs](https://github.com/sourcegraph/go-vcs).
 
+**Status**: Prototyping. None of the backends produce complete output yet, but
+the difflib one is closest and least broken.
+
 
 ## Features
 
 - Git-style patch headers for each file (are there other styles to support?).
 - Bring your own diff algorithm by implementing the *Differ* interface.
-- Includes a couple of diffing backends:
-  * [difflib](https://godoc.org/github.com/pmezard/go-difflib) (default)
-  * [diffmatchpatch](https://godoc.org/github.com/sergi/go-diff/diffmatchpatch)
+- Includes a few diffing backends:
+  * [pmezard/go-difflib](https://godoc.org/github.com/pmezard/go-difflib)
+    (default)
+  * [sergi/go-diff/diffmatchpatch](https://godoc.org/github.com/sergi/go-diff/diffmatchpatch)
     (offsets produced are inconsistent with git diff)
+  * [mb0/diff](https://godoc.org/github.com/mb0/diff) (incomplete backend)
 
 
 ## Sponsors
