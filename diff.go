@@ -6,12 +6,12 @@ import (
 	"io"
 	"path/filepath"
 
-	"github.com/shazow/go-diff/dmp"
+	"github.com/shazow/go-diff/difflib"
 )
 
 // DefaultDiffer returns a diffmatchpatch-based differ.
 func DefaultDiffer() Differ {
-	return dmp.New()
+	return difflib.New()
 }
 
 // Differ supplies a stream-based diffing algorithm implementation.

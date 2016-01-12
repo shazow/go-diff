@@ -15,7 +15,10 @@ Built to be used in the pure-Go implementation of the Git backend for
 
 - Git-style patch headers for each file (are there other styles to support?).
 - Bring your own diff algorithm by implementing the *Differ* interface.
-- Includes a *Differ* implementation using [diffmatchpatch](https://godoc.org/github.com/sergi/go-diff/diffmatchpatch).
+- Includes a couple of diffing backends:
+  * [difflib](https://godoc.org/github.com/pmezard/go-difflib) (default)
+  * [diffmatchpatch](https://godoc.org/github.com/sergi/go-diff/diffmatchpatch)
+    (offsets produced are inconsistent with git diff)
 
 
 ## Sponsors
